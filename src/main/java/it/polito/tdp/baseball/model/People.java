@@ -21,13 +21,13 @@ public class People {
     private LocalDateTime debutDate;
     private LocalDateTime finalgameDate;
     private LocalDateTime deathDate;
+    private int grado;
 
     
 
     public People(String playerID, String birthCountry, String birthCity, String deathCountry, String deathCity,
 			String nameFirst, String nameLast, Integer weight, Integer height, String bats, String throwString,
 			LocalDateTime birthDate, LocalDateTime debutDate, LocalDateTime finalgameDate, LocalDateTime deathDate) {
-		super();
 		this.playerID = playerID;
 		this.birthCountry = birthCountry;
 		this.birthCity = birthCity;
@@ -44,6 +44,27 @@ public class People {
 		this.finalgameDate = finalgameDate;
 		this.deathDate = deathDate;
 	}
+    
+    
+
+	@Override
+	public String toString() {
+		return playerID + " = " + nameFirst + " " + nameLast;
+	}
+
+
+
+	public int getGrado() {
+		return grado;
+	}
+
+
+
+	public void setGrado(int grado) {
+		this.grado = grado;
+	}
+
+
 
 	public String getPlayerID(){
         return playerID;
@@ -181,13 +202,10 @@ public class People {
 		People other = (People) obj;
 		return Objects.equals(playerID, other.playerID);
 	}
+    
+    
+    
 
-	@Override
-	public String toString() {
-		return nameFirst + " " + nameLast;
-	}
-    
-    
 
 }
 

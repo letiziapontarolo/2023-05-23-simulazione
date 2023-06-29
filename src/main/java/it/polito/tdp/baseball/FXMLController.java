@@ -1,13 +1,9 @@
 package it.polito.tdp.baseball;
 
 import java.net.URL;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
 
-import it.polito.tdp.baseball.model.Grado;
 import it.polito.tdp.baseball.model.Model;
-import it.polito.tdp.baseball.model.People;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -45,33 +41,61 @@ public class FXMLController {
     @FXML
     private TextField txtYear;
 
-    
-    
     @FXML
     void doCalcolaConnesse(ActionEvent event) {
     	
+    	txtResult.appendText(Integer.toString(this.model.componentiConnesse()) + "\n");
+
     }
 
-    
-    
     @FXML
     void doCreaGrafo(ActionEvent event) {
     	
+    	String s = txtSalary.getText();
+    	String a = txtYear.getText();
+    	double salario;
+    	int anno;
+    	
+    	if (s.equals("") || a.equals("")) {
+    		txtResult.appendText("Perfavore, inserire un salario e un anno");
+    		return; 
+    		}
+    		
+    		try {
+    			salario = Double.parseDouble(s);
+    			anno = Integer.parseInt(a);
+    		} catch (NumberFormatException e) {
+    			e.printStackTrace();
+        		return;
+    		}
+    		
+    		if ( anno < 1871 || anno > 2019) {
+    			txtResult.appendText("Perfavore, inserire un anno compreso "
+    					+ "tra il 1871 e il 2019");
+        		return; 
+    	}
+    		
+    		this.model.creaGrafo(anno, salario);
+    		btnGradoMassimo.setDisable(false);
+    		btnConnesse.setDisable(false);
+    		txtResult.appendText("Grafo creato!\n");
+    		txtResult.appendText("#VETICI: " + this.model.numeroVertici() + "\n");
+    		txtResult.appendText("#ARCHI: " + this.model.numeroArchi() + "\n");
+
     }
 
-    
     @FXML
     void doDreamTeam(ActionEvent event) {
 
     }
 
-    
     @FXML
     void doGradoMassimo(ActionEvent event) {
+    	
+    	txtResult.appendText(this.model.gradoMassimo() + "\n");
 
     }
 
-    
     @FXML
     void initialize() {
         assert btnConnesse != null : "fx:id=\"btnConnesse\" was not injected: check your FXML file 'Scene.fxml'.";
