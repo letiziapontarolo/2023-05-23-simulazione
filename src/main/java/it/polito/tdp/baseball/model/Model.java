@@ -2,6 +2,7 @@ package it.polito.tdp.baseball.model;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -34,7 +35,9 @@ public class Model {
 		Graphs.addAllVertices(this.grafo, this.dao.giocatoriSalarioAnno(anno, salario));
 		for (Adiacenza a : this.dao.getAdiacenze(anno, salario) ) {
 			Graphs.addEdgeWithVertices(this.grafo, peopleIdMap.get(a.getP1()), peopleIdMap.get(a.getP2()));
+			People p = peopleIdMap.get(a.getP1());
 		}
+		
 	}
 	
 	public String gradoMassimo() {
@@ -69,6 +72,8 @@ public class Model {
 		ConnectivityInspector<People, DefaultEdge> inspector = 
 				new ConnectivityInspector<People, DefaultEdge>(this.grafo);
 		return inspector.connectedSets().size();
+
+		
 	}
 	
 	
